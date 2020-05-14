@@ -1,0 +1,162 @@
+  Memory usage: 32%               IP address for eth0: 172.31.43.11
+  Swap usage:   0%
+
+ * Kubernetes 1.18 GA is now available! See https://microk8s.io for docs or
+   install it with:
+
+     sudo snap install microk8s --channel=1.18 --classic
+
+ * Multipass 1.1 adds proxy support for developers behind enterprise
+   firewalls. Rapid prototyping for cloud operations just got easier.
+
+     https://multipass.run/
+
+ * Canonical Livepatch is available for installation.
+   - Reduce system reboots and improve kernel security. Activate at:
+     https://ubuntu.com/livepatch
+
+2 packages can be updated.
+0 updates are security updates.
+
+
+Last login: Sat Apr 18 11:09:22 2020 from 91.205.168.62
+ubuntu@ip-172-31-43-11:~$ clear
+ubuntu@ip-172-31-43-11:~$ cd
+ubuntu@ip-172-31-43-11:~$ nano .my.cnf
+ubuntu@ip-172-31-43-11:~$ ls -la
+total 52
+drwxr-xr-x 6 ubuntu ubuntu 4096 Apr 21 11:33 .
+drwxr-xr-x 3 root   root   4096 Apr 13 12:30 ..
+-rw------- 1 ubuntu ubuntu  616 Apr 14 16:54 .bash_history
+-rw-r--r-- 1 ubuntu ubuntu  220 Apr  4  2018 .bash_logout
+-rw-r--r-- 1 ubuntu ubuntu 3771 Apr  4  2018 .bashrc
+drwx------ 2 ubuntu ubuntu 4096 Apr 13 12:31 .cache
+drwx------ 3 ubuntu ubuntu 4096 Apr 13 12:31 .gnupg
+drwxrwxr-x 3 ubuntu ubuntu 4096 Apr 14 14:21 .local
+-rw-rw-r-- 1 ubuntu ubuntu   28 Apr 14 14:49 .my.cnf
+-rw------- 1 root   root    125 Apr 14 15:20 .mysql_history
+-rw-r--r-- 1 ubuntu ubuntu  807 Apr  4  2018 .profile
+drwx------ 2 ubuntu ubuntu 4096 Apr 13 12:30 .ssh
+-rw-r--r-- 1 ubuntu ubuntu    0 Apr 13 20:13 .sudo_as_admin_successful
+-rw------- 1 root   root   1228 Apr 13 21:28 .viminfo
+-rw-rw-r-- 1 ubuntu ubuntu    0 Apr 13 20:37 SYSTEM
+ubuntu@ip-172-31-43-11:~$ sudo mysql -u root -p
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 4
+Server version: 5.7.29-0ubuntu0.18.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> exit
+Bye
+ubuntu@ip-172-31-43-11:~$ sudo mysql -u root -p
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 5
+Server version: 5.7.29-0ubuntu0.18.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> CREATE DATABASE example
+    -> ;
+ERROR 1007 (HY000): Can't create database 'example'; database exists
+mysql> SHOW DATABASES
+    -> ;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| example            |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.01 sec)
+
+mysql> USE example
+Database changed
+mysql> CREATE TABLE IF NOT EXISTS users (
+    -> id SERIAL,
+    -> name VARCHAR(255) NOT NULL UNIQUE
+    -> );
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> SHOW TABLES;
++-------------------+
+| Tables_in_example |
++-------------------+
+| users             |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> mysql>
+mysql> exit
+Bye
+ubuntu@ip-172-31-43-11:~$ mysqldump
+Usage: mysqldump [OPTIONS] database [tables]
+OR     mysqldump [OPTIONS] --databases [OPTIONS] DB1 [DB2 DB3...]
+OR     mysqldump [OPTIONS] --all-databases [OPTIONS]
+For more options, use mysqldump --help
+ubuntu@ip-172-31-43-11:~$ sudo mysqldump -u root -p example > example.dump.sql
+Enter password:
+ubuntu@ip-172-31-43-11:~$ ls
+SYSTEM  example.dump.sql
+ubuntu@ip-172-31-43-11:~$ sudo mysql -u root -p -e 'CREATE DATABASE sample'
+Enter password:
+ubuntu@ip-172-31-43-11:~$ sudo mysql -u root -p sample < example.dump.sql
+Enter password:
+ubuntu@ip-172-31-43-11:~$ sudo mysql -u root -p
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 10
+Server version: 5.7.29-0ubuntu0.18.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> SHOW DATABASES
+    -> ;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| example            |
+| mysql              |
+| performance_schema |
+| sample             |
+| sys                |
++--------------------+
+6 rows in set (0.00 sec)
+
+mysql> USE sample
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> SHOW TABLES;
++------------------+
+| Tables_in_sample |
++------------------+
+| users            |
++------------------+
+1 row in set (0.00 sec)
+
+mysql>
