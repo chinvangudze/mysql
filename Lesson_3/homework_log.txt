@@ -1,0 +1,831 @@
+Using username "ubuntu".
+Authenticating with public key "imported-openssh-key"
+Welcome to Ubuntu 18.04.4 LTS (GNU/Linux 4.15.0-1065-aws x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+  System information as of Mon Apr 27 19:31:59 UTC 2020
+
+  System load:  0.0               Processes:           95
+  Usage of /:   20.6% of 9.63GB   Users logged in:     0
+  Memory usage: 32%               IP address for eth0: 172.31.43.11
+  Swap usage:   0%
+
+ * Ubuntu 20.04 LTS is out, raising the bar on performance, security,
+   and optimisation for Intel, AMD, Nvidia, ARM64 and Z15 as well as
+   AWS, Azure and Google Cloud.
+
+     https://ubuntu.com/blog/ubuntu-20-04-lts-arrives
+
+
+ * Canonical Livepatch is available for installation.
+   - Reduce system reboots and improve kernel security. Activate at:
+     https://ubuntu.com/livepatch
+
+8 packages can be updated.
+0 updates are security updates.
+
+
+Last login: Thu Apr 23 21:20:16 2020 from 37.190.107.8
+ubuntu@ip-172-31-43-11:~$ sudo mysql -u root -p
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 2
+Server version: 5.7.29-0ubuntu0.18.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql>
+mysql> DROP DATABASE vk;
+Query OK, 9 rows affected (0.35 sec)
+
+mysql> CREATE DATABASE vk;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> sudo mysql -u root -p vk < vk.dump.sql
+    -> exit
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that                                                                       corresponds to your MySQL server version for the right syntax to use near 'sudo                                                                       mysql -u root -p vk < vk.dump.sql
+exit' at line 1
+mysql> exit;
+Bye
+ubuntu@ip-172-31-43-11:~$ sudo mysql -u root -p vk < vk.dump.sql
+-bash: vk.dump.sql: No such file or directory
+ubuntu@ip-172-31-43-11:~$ sudo mysql -u root -p
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 3
+Server version: 5.7.29-0ubuntu0.18.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> SHOW TABLES;
+ERROR 1046 (3D000): No database selected
+mysql> USE vk;
+Database changed
+mysql> SHOW TABLES;
+Empty set (0.00 sec)
+
+mysql> exit;
+Bye
+ubuntu@ip-172-31-43-11:~$ cd /home/ubuntu
+ubuntu@ip-172-31-43-11:~$ sudo mysql -u root -p vk < vk.dump.sql
+-bash: vk.dump.sql: No such file or directory
+ubuntu@ip-172-31-43-11:~$ sudo mysql -u root -p vk < vk.dump.sql
+Enter password:
+ubuntu@ip-172-31-43-11:~$
+ubuntu@ip-172-31-43-11:~$ SHOW TABLES;
+SHOW: command not found
+ubuntu@ip-172-31-43-11:~$ sudo mysql -u root -p
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 5
+Server version: 5.7.29-0ubuntu0.18.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> SHOW TABLES;
+ERROR 1046 (3D000): No database selected
+mysql> USE vk;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> SHOW TABLES;
++---------------------+
+| Tables_in_vk        |
++---------------------+
+| communities         |
+| communities_users   |
+| friendship          |
+| friendship_statuses |
+| media               |
+| media_types         |
+| messages            |
+| profiles            |
+| users               |
++---------------------+
+9 rows in set (0.00 sec)
+
+mysql> SELECT * FROM users LIMIT 10;
++----+------------+-------------+-----------------------------+-----------------                                                                      ----+---------------------+---------------------+
+| id | first_name | last_name   | email                       | phone                                                                                     | created_at          | updated_at          |
++----+------------+-------------+-----------------------------+-----------------                                                                      ----+---------------------+---------------------+
+|  1 | Linnea     | Heidenreich | anika.walsh@example.net     | +14(9)8559106127                                                                          | 2014-02-25 13:48:34 | 2015-06-06 12:37:19 |
+|  2 | Alysson    | Runte       | kuhlman.rodrick@example.net | 165-568-9212x115                                                                      57  | 2017-09-04 09:57:10 | 2014-03-18 16:05:58 |
+|  3 | Luther     | Ritchie     | sabryna35@example.com       | (576)732-6005x35                                                                      837 | 2015-03-01 17:03:14 | 2016-05-21 08:41:45 |
+|  4 | Ubaldo     | Littel      | kuhlman.arianna@example.net | (333)696-4196x67                                                                      934 | 2010-07-25 01:25:11 | 2018-03-26 19:50:27 |
+|  5 | Velda      | Boehm       | elangworth@example.com      | 583-179-4243                                                                              | 2013-05-05 20:14:44 | 2013-02-24 00:23:55 |
+|  6 | Rogers     | Nader       | rolfson.jevon@example.net   | +05(0)0703201243                                                                          | 2020-03-15 03:02:02 | 2017-09-03 03:46:34 |
+|  7 | Brad       | Grant       | conner77@example.com        | (578)798-0266                                                                             | 2017-01-14 16:59:30 | 2017-03-16 15:58:59 |
+|  8 | Jerry      | Erdman      | foster37@example.net        | +49(9)3126994305                                                                          | 2011-11-06 09:14:25 | 2010-12-12 23:46:32 |
+|  9 | Jamil      | Bradtke     | joseph98@example.com        | 673.879.0425x000                                                                      45  | 2018-09-29 13:11:06 | 2017-11-15 17:55:19 |
+| 10 | Carroll    | Balistreri  | metz.halle@example.org      | 603.675.9572x076                                                                          | 2012-04-07 19:42:09 | 2019-03-01 18:17:56 |
++----+------------+-------------+-----------------------------+-----------------                                                                      ----+---------------------+---------------------+
+10 rows in set (0.00 sec)
+
+mysql> DESC users;
++------------+------------------+------+-----+-------------------+-----------------------------+
+| Field      | Type             | Null | Key | Default           | Extra                       |
++------------+------------------+------+-----+-------------------+-----------------------------+
+| id         | int(10) unsigned | NO   | PRI | NULL              | auto_increment              |
+| first_name | varchar(100)     | NO   |     | NULL              |                             |
+| last_name  | varchar(100)     | NO   |     | NULL              |                             |
+| email      | varchar(120)     | NO   | UNI | NULL              |                             |
+| phone      | varchar(120)     | NO   | UNI | NULL              |                             |
+| created_at | datetime         | YES  |     | CURRENT_TIMESTAMP |                             |
+| updated_at | datetime         | YES  |     | CURRENT_TIMESTAMP | on update CURRENT_TIMESTAMP |
++------------+------------------+------+-----+-------------------+-----------------------------+
+7 rows in set (0.00 sec)
+
+mysql> UPDATE users SET updated_at = CURRENT_TIMESTAMP WHERE created_at > updated_at;
+Query OK, 52 rows affected (0.01 sec)
+Rows matched: 52  Changed: 52  Warnings: 0
+
+mysql> DESC profiles;
++----------+------------------+------+-----+---------+-------+
+| Field    | Type             | Null | Key | Default | Extra |
++----------+------------------+------+-----+---------+-------+
+| user_id  | int(10) unsigned | NO   | PRI | NULL    |       |
+| gender   | char(1)          | NO   |     | NULL    |       |
+| birthday | date             | YES  |     | NULL    |       |
+| city     | varchar(100)     | YES  |     | NULL    |       |
+| country  | varchar(100)     | YES  |     | NULL    |       |
++----------+------------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM profiles LIMIT 10;
++---------+--------+------------+-----------------------+------------------------------+
+| user_id | gender | birthday   | city                  | country                      |
++---------+--------+------------+-----------------------+------------------------------+
+|       1 | m      | 2006-10-21 | Lake Shaylee          | Iraq                         |
+|       2 | f      | 2005-07-08 | North Selena          | United States Virgin Islands |
+|       3 | f      | 1971-12-29 | Lake Christinaborough | Equatorial Guinea            |
+|       4 | m      | 2001-06-03 | South Keeleyberg      | Belize                       |
+|       5 | f      | 1996-10-25 | East Eduardo          | Sweden                       |
+|       6 | m      | 2014-09-27 | Bartmouth             | Brunei Darussalam            |
+|       7 | m      | 1988-09-01 | North Eldridge        | Tokelau                      |
+|       8 | m      | 2018-04-14 | Lake Jakob            | South Africa                 |
+|       9 | m      | 1994-02-13 | Corteztown            | San Marino                   |
+|      10 | f      | 1995-01-20 | New Brucehaven        | Afghanistan                  |
++---------+--------+------------+-----------------------+------------------------------+
+10 rows in set (0.00 sec)
+
+mysql> ALTER TABLE profiles DROP COLUMN photo_id;
+ERROR 1091 (42000): Can't DROP 'photo_id'; check that column/key exists
+mysql> ALTER TABLE profiles ADD COLUMN photo_id INT UNSIGNED AFTER country;
+Query OK, 0 rows affected (0.15 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE profiles DROP COLUMN photo_id;
+Query OK, 0 rows affected (0.16 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> ALTER TABLE profiles ADD COLUMN photo_id INT UNSIGNED AFTER country;
+Query OK, 0 rows affected (0.15 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM profiles LIMIT 10;
++---------+--------+------------+-----------------------+------------------------------+----------+
+| user_id | gender | birthday   | city                  | country                      | photo_id |
++---------+--------+------------+-----------------------+------------------------------+----------+
+|       1 | m      | 2006-10-21 | Lake Shaylee          | Iraq                         |     NULL |
+|       2 | f      | 2005-07-08 | North Selena          | United States Virgin Islands |     NULL |
+|       3 | f      | 1971-12-29 | Lake Christinaborough | Equatorial Guinea            |     NULL |
+|       4 | m      | 2001-06-03 | South Keeleyberg      | Belize                       |     NULL |
+|       5 | f      | 1996-10-25 | East Eduardo          | Sweden                       |     NULL |
+|       6 | m      | 2014-09-27 | Bartmouth             | Brunei Darussalam            |     NULL |
+|       7 | m      | 1988-09-01 | North Eldridge        | Tokelau                      |     NULL |
+|       8 | m      | 2018-04-14 | Lake Jakob            | South Africa                 |     NULL |
+|       9 | m      | 1994-02-13 | Corteztown            | San Marino                   |     NULL |
+|      10 | f      | 1995-01-20 | New Brucehaven        | Afghanistan                  |     NULL |
++---------+--------+------------+-----------------------+------------------------------+----------+
+10 rows in set (0.00 sec)
+
+mysql> SHOW TABLES;
++---------------------+
+| Tables_in_vk        |
++---------------------+
+| communities         |
+| communities_users   |
+| friendship          |
+| friendship_statuses |
+| media               |
+| media_types         |
+| messages            |
+| profiles            |
+| users               |
++---------------------+
+9 rows in set (0.00 sec)
+
+mysql> DESC messages;
++--------------+------------------+------+-----+-------------------+----------------+
+| Field        | Type             | Null | Key | Default           | Extra          |
++--------------+------------------+------+-----+-------------------+----------------+
+| id           | int(10) unsigned | NO   | PRI | NULL              | auto_increment |
+| from_user_id | int(10) unsigned | NO   |     | NULL              |                |
+| to_user_id   | int(10) unsigned | NO   |     | NULL              |                |
+| community_id | int(10) unsigned | NO   |     | NULL              |                |
+| body         | text             | NO   |     | NULL              |                |
+| is_important | tinyint(1)       | YES  |     | NULL              |                |
+| is_delivered | tinyint(1)       | YES  |     | NULL              |                |
+| created_at   | datetime         | YES  |     | CURRENT_TIMESTAMP |                |
++--------------+------------------+------+-----+-------------------+----------------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT * FROM messages LIMIT 10;
++----+--------------+------------+--------------+------------------------------------------------------------------                                   -------------------------------------------------------------------------------------------------------------------                                   -------------------+--------------+--------------+---------------------+
+| id | from_user_id | to_user_id | community_id | body                                                                                                                                                                                                                                                                         | is_important | is_delivered | created_at          |
++----+--------------+------------+--------------+------------------------------------------------------------------                                   -------------------------------------------------------------------------------------------------------------------                                   -------------------+--------------+--------------+---------------------+
+|  1 |           50 |         34 |           83 | Beautiful, beautiful Soup! Beau--ootiful Soo--oop! Soo--oop of th                                   e singers in the other: the only difficulty was, that you weren't to talk about her repeating 'YOU ARE OLD, FATHER                                    WILLIAM,' to the.  |            1 |            1 | 2015-05-04 16:19:10 |
+|  2 |            7 |         98 |           78 | I'll have you executed, whether you're nervous or not.' 'I'm a po                                   or man,' the Hatter said, tossing his head mournfully. 'Not I!' said the Queen said to herself. 'Of the mushroom,'                                    said the Gryphon.  |            1 |            0 | 2019-09-15 03:37:34 |
+|  3 |           45 |         82 |           24 | Alice, who felt ready to sink into the air. Even the Duchess said                                    to Alice, and her eyes anxiously fixed on it, for she had been all the rest of it had gone. 'Well! I've often seen                                    a cat without a.  |            1 |            1 | 2016-02-25 22:08:28 |
+|  4 |            7 |         74 |           35 | Hatter instead!' CHAPTER VII. A Mad Tea-Party There was nothing o                                   n it except a tiny little thing!' said the youth, 'and your jaws are too weak For anything tougher than suet; Yet y                                   ou finished the.   |            0 |            1 | 2011-08-31 18:37:42 |
+|  5 |           11 |         40 |           22 | What made you so awfully clever?' 'I have answered three question                                   s, and that in the long hall, and close to the Dormouse, not choosing to notice this last remark, 'it's a vegetable                                   . It doesn't look. |            0 |            0 | 2016-01-16 17:37:46 |
+|  6 |           54 |         93 |           97 | Turtle.' These words were followed by a row of lamps hanging from                                    the shock of being such a fall as this, I shall only look up and bawled out, "He's murdering the time! Off with hi                                   s head!"' 'How.    |            0 |            0 | 2012-05-06 11:50:27 |
+|  7 |           98 |         82 |           45 | Alice thought decidedly uncivil. 'But perhaps it was talking in a                                    sort of lullaby to it as far as they used to it as far as they came nearer, Alice could hear the Rabbit noticed Al                                   ice, as she swam.  |            0 |            1 | 2012-09-13 22:07:14 |
+|  8 |          100 |         94 |           44 | I'm certain! I must have been a holiday?' 'Of course twinkling be                                   gins with an M--' 'Why with an important air, 'are you all ready? This is the same size: to be true): If she should                                    push the matter.  |            0 |            1 | 2013-12-24 17:08:17 |
+|  9 |           87 |         14 |           79 | Hatter, 'or you'll be telling me next that you had been for some                                    way of escape, and wondering whether she could see, when she was shrinking rapidly; so she began thinking over othe                                   r children she.    |            1 |            1 | 2017-05-31 13:40:22 |
+| 10 |           50 |         94 |           15 | Mock Turtle sang this, very slowly and sadly:-- '"Will you walk a                                    little before she found herself in Wonderland, though she felt a very difficult question. However, at last turned                                    sulky, and would.  |            0 |            1 | 2019-02-09 14:42:04 |
++----+--------------+------------+--------------+------------------------------------------------------------------                                   -------------------------------------------------------------------------------------------------------------------                                   -------------------+--------------+--------------+---------------------+
+10 rows in set (0.00 sec)
+
+mysql> UPDATE messages SET
+    ->   from_user_id = FLOOR(1 + RAND() * 200),
+    ->   to_user_id = FLOOR(1 + RAND() * 200);
+Query OK, 100 rows affected (0.00 sec)
+Rows matched: 100  Changed: 100  Warnings: 0
+
+mysql> SELECT * FROM messages LIMIT 10;
++----+--------------+------------+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------+--------------+---------------------+
+| id | from_user_id | to_user_id | community_id | body                                                                                                                                                                                                   | is_important | is_delivered | created_at          |
++----+--------------+------------+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------+--------------+---------------------+
+|  1 |           33 |         52 |           83 | Beautiful, beautiful Soup! Beau--ootiful Soo--oop! Soo--oop of the singers in the other: the only difficulty was, that you weren't to talk about her repeating 'YOU ARE OLD, FATHER WILLIAM,' to the.  |            1 |            1 | 2015-05-04 16:19:10 |
+|  2 |          160 |         43 |           78 | I'll have you executed, whether you're nervous or not.' 'I'm a poor man,' the Hatter said, tossing his head mournfully. 'Not I!' said the Queen said to herself. 'Of the mushroom,' said the Gryphon.  |            1 |            0 | 2019-09-15 03:37:34 |
+|  3 |          137 |        153 |           24 | Alice, who felt ready to sink into the air. Even the Duchess said to Alice, and her eyes anxiously fixed on it, for she had been all the rest of it had gone. 'Well! I've often seen a cat without a.  |            1 |            1 | 2016-02-25 22:08:28 |
+|  4 |          155 |        113 |           35 | Hatter instead!' CHAPTER VII. A Mad Tea-Party There was nothing on it except a tiny little thing!' said the youth, 'and your jaws are too weak For anything tougher than suet; Yet you finished the.   |            0 |            1 | 2011-08-31 18:37:42 |
+|  5 |          101 |        166 |           22 | What made you so awfully clever?' 'I have answered three questions, and that in the long hall, and close to the Dormouse, not choosing to notice this last remark, 'it's a vegetable. It doesn't look. |            0 |            0 | 2016-01-16 17:37:46 |
+|  6 |          128 |        141 |           97 | Turtle.' These words were followed by a row of lamps hanging from the shock of being such a fall as this, I shall only look up and bawled out, "He's murdering the time! Off with his head!"' 'How.    |            0 |            0 | 2012-05-06 11:50:27 |
+|  7 |          119 |        172 |           45 | Alice thought decidedly uncivil. 'But perhaps it was talking in a sort of lullaby to it as far as they used to it as far as they came nearer, Alice could hear the Rabbit noticed Alice, as she swam.  |            0 |            1 | 2012-09-13 22:07:14 |
+|  8 |          102 |        192 |           44 | I'm certain! I must have been a holiday?' 'Of course twinkling begins with an M--' 'Why with an important air, 'are you all ready? This is the same size: to be true): If she should push the matter.  |            0 |            1 | 2013-12-24 17:08:17 |
+|  9 |           54 |         93 |           79 | Hatter, 'or you'll be telling me next that you had been for some way of escape, and wondering whether she could see, when she was shrinking rapidly; so she began thinking over other children she.    |            1 |            1 | 2017-05-31 13:40:22 |
+| 10 |          105 |         42 |           15 | Mock Turtle sang this, very slowly and sadly:-- '"Will you walk a little before she found herself in Wonderland, though she felt a very difficult question. However, at last turned sulky, and would.  |            0 |            1 | 2019-02-09 14:42:04 |
++----+--------------+------------+--------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------+--------------+---------------------+
+10 rows in set (0.00 sec)
+
+mysql> DESC messages;
++--------------+------------------+------+-----+-------------------+----------------+
+| Field        | Type             | Null | Key | Default           | Extra          |
++--------------+------------------+------+-----+-------------------+----------------+
+| id           | int(10) unsigned | NO   | PRI | NULL              | auto_increment |
+| from_user_id | int(10) unsigned | NO   |     | NULL              |                |
+| to_user_id   | int(10) unsigned | NO   |     | NULL              |                |
+| community_id | int(10) unsigned | NO   |     | NULL              |                |
+| body         | text             | NO   |     | NULL              |                |
+| is_important | tinyint(1)       | YES  |     | NULL              |                |
+| is_delivered | tinyint(1)       | YES  |     | NULL              |                |
+| created_at   | datetime         | YES  |     | CURRENT_TIMESTAMP |                |
++--------------+------------------+------+-----+-------------------+----------------+
+8 rows in set (0.00 sec)
+
+mysql> ALTER TABLE messages MODIFY COLUMN community_id INT UNSIGNED;
+Query OK, 0 rows affected (0.20 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC messages;
++--------------+------------------+------+-----+-------------------+----------------+
+| Field        | Type             | Null | Key | Default           | Extra          |
++--------------+------------------+------+-----+-------------------+----------------+
+| id           | int(10) unsigned | NO   | PRI | NULL              | auto_increment |
+| from_user_id | int(10) unsigned | NO   |     | NULL              |                |
+| to_user_id   | int(10) unsigned | NO   |     | NULL              |                |
+| community_id | int(10) unsigned | YES  |     | NULL              |                |
+| body         | text             | NO   |     | NULL              |                |
+| is_important | tinyint(1)       | YES  |     | NULL              |                |
+| is_delivered | tinyint(1)       | YES  |     | NULL              |                |
+| created_at   | datetime         | YES  |     | CURRENT_TIMESTAMP |                |
++--------------+------------------+------+-----+-------------------+----------------+
+8 rows in set (0.00 sec)
+
+mysql> DESC communities;
++-------+------------------+------+-----+---------+----------------+
+| Field | Type             | Null | Key | Default | Extra          |
++-------+------------------+------+-----+---------+----------------+
+| id    | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
+| name  | varchar(150)     | NO   | UNI | NULL    |                |
++-------+------------------+------+-----+---------+----------------+
+2 rows in set (0.00 sec)
+
+mysql> DESC communities_users;
++--------------+------------------+------+-----+---------+-------+
+| Field        | Type             | Null | Key | Default | Extra |
++--------------+------------------+------+-----+---------+-------+
+| community_id | int(10) unsigned | NO   | PRI | NULL    |       |
+| user_id      | int(10) unsigned | NO   | PRI | NULL    |       |
++--------------+------------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM communities_users LIMIT 10;
++--------------+---------+
+| community_id | user_id |
++--------------+---------+
+|            1 |      76 |
+|            2 |      11 |
+|            2 |      59 |
+|            4 |       2 |
+|            4 |      85 |
+|            6 |      27 |
+|            6 |      47 |
+|            9 |      58 |
+|            9 |      85 |
+|           12 |      13 |
++--------------+---------+
+10 rows in set (0.00 sec)
+
+mysql> DESC media;
++---------------+------------------+------+-----+-------------------+-----------------------------+
+| Field         | Type             | Null | Key | Default           | Extra                       |
++---------------+------------------+------+-----+-------------------+-----------------------------+
+| id            | int(10) unsigned | NO   | PRI | NULL              | auto_increment              |
+| media_type_id | int(10) unsigned | NO   |     | NULL              |                             |
+| user_id       | int(10) unsigned | NO   |     | NULL              |                             |
+| filename      | varchar(255)     | NO   |     | NULL              |                             |
+| size          | int(11)          | NO   |     | NULL              |                             |
+| metadata      | longtext         | YES  |     | NULL              |                             |
+| created_at    | datetime         | YES  |     | CURRENT_TIMESTAMP |                             |
+| updated_at    | datetime         | YES  |     | CURRENT_TIMESTAMP | on update CURRENT_TIMESTAMP |
++---------------+------------------+------+-----+-------------------+-----------------------------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT * FROM media LIMIT 10;
++----+---------------+---------+------------+------+------------------------------------------------------------------+---------------------+---------------------+
+| id | media_type_id | user_id | filename   | size | metadata                                                         | created_at          | updated_at          |
++----+---------------+---------+------------+------+------------------------------------------------------------------+---------------------+---------------------+
+|  1 |            99 |      66 | quaerat    | 1593 | a2a291e627dcdca86d687f813ea98c6e27cc7c5de547282f5644a1a9f1dd39f3 | 2016-11-15 21:49:23 | 2012-12-31 19:41:11 |
+|  2 |            69 |      57 | quis       |  971 | 88cda16a1497aa93bab1f01615d89382bf74009f13d237a7debdaf593cfd7acc | 2017-12-10 16:24:11 | 2013-01-14 11:27:24 |
+|  3 |             5 |      73 | minima     |  926 | 285143d2ac11e390cb55907d6eaa8bc94a53e6c376bc87b5f4c1b0c324545660 | 2018-02-17 16:46:14 | 2013-08-29 12:37:21 |
+|  4 |            58 |      64 | minima     | 1113 | dbe3d4ac847e81b221f7f29a6ac1243d1767cdd8dedca0ba94ad2e2f2734f944 | 2010-06-09 11:07:46 | 2017-01-09 15:49:38 |
+|  5 |            26 |      49 | reiciendis | 1959 | 570ef2b675c413e865edd0716528f95f49bd2eea40b6c9abe50c0342bf1b5a9b | 2019-09-09 03:56:23 | 2015-06-27 02:51:08 |
+|  6 |            60 |      39 | laboriosam |  310 | 98afe33587171e74b7be602645c293869ea7edafa83f1a7bbf3f6a5dcf89d9b4 | 2019-09-07 22:02:28 | 2014-02-21 19:51:41 |
+|  7 |            32 |      81 | eveniet    | 1452 | f819e1a3244de2b287bd798fdca10c37c49df46bd9ec2783f5dab8e3646d256b | 2015-05-21 01:05:52 | 2019-05-20 10:14:18 |
+|  8 |            92 |      34 | nesciunt   |  900 | e6c3c0e3376e9fe1f1fb5107507cc4c407e65833d9167b4eb2b9473c8debd961 | 2012-04-28 00:24:29 | 2014-02-18 15:39:10 |
+|  9 |             2 |      39 | maxime     |  769 | 339ed57f853429a5d9a1ee0489f50a4f7410c030fa582850697b13604a55fbfa | 2013-11-08 08:02:59 | 2011-01-05 14:49:15 |
+| 10 |            55 |       9 | rerum      | 1457 | df39def99b30d93981996b0865f8dbf7ffd40c2012d79ea2b38ab55eea4cfbeb | 2011-08-06 15:50:27 | 2010-12-28 15:28:45 |
++----+---------------+---------+------------+------+------------------------------------------------------------------+---------------------+---------------------+
+10 rows in set (0.01 sec)
+
+mysql> DELETE FROM media_types;
+Query OK, 3 rows affected (0.00 sec)
+
+mysql> INSERT INTO media_types (name) VALUES
+    ->   ('photo'),
+    ->   ('video'),
+    ->   ('audio')
+    -> ;
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> TRUNCATE media_types;
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> SELECT * FROM media LIMIT 10;
++----+---------------+---------+------------+------+------------------------------------------------------------------+---------------------+---------------------+
+| id | media_type_id | user_id | filename   | size | metadata                                                         | created_at          | updated_at          |
++----+---------------+---------+------------+------+------------------------------------------------------------------+---------------------+---------------------+
+|  1 |            99 |      66 | quaerat    | 1593 | a2a291e627dcdca86d687f813ea98c6e27cc7c5de547282f5644a1a9f1dd39f3 | 2016-11-15 21:49:23 | 2012-12-31 19:41:11 |
+|  2 |            69 |      57 | quis       |  971 | 88cda16a1497aa93bab1f01615d89382bf74009f13d237a7debdaf593cfd7acc | 2017-12-10 16:24:11 | 2013-01-14 11:27:24 |
+|  3 |             5 |      73 | minima     |  926 | 285143d2ac11e390cb55907d6eaa8bc94a53e6c376bc87b5f4c1b0c324545660 | 2018-02-17 16:46:14 | 2013-08-29 12:37:21 |
+|  4 |            58 |      64 | minima     | 1113 | dbe3d4ac847e81b221f7f29a6ac1243d1767cdd8dedca0ba94ad2e2f2734f944 | 2010-06-09 11:07:46 | 2017-01-09 15:49:38 |
+|  5 |            26 |      49 | reiciendis | 1959 | 570ef2b675c413e865edd0716528f95f49bd2eea40b6c9abe50c0342bf1b5a9b | 2019-09-09 03:56:23 | 2015-06-27 02:51:08 |
+|  6 |            60 |      39 | laboriosam |  310 | 98afe33587171e74b7be602645c293869ea7edafa83f1a7bbf3f6a5dcf89d9b4 | 2019-09-07 22:02:28 | 2014-02-21 19:51:41 |
+|  7 |            32 |      81 | eveniet    | 1452 | f819e1a3244de2b287bd798fdca10c37c49df46bd9ec2783f5dab8e3646d256b | 2015-05-21 01:05:52 | 2019-05-20 10:14:18 |
+|  8 |            92 |      34 | nesciunt   |  900 | e6c3c0e3376e9fe1f1fb5107507cc4c407e65833d9167b4eb2b9473c8debd961 | 2012-04-28 00:24:29 | 2014-02-18 15:39:10 |
+|  9 |             2 |      39 | maxime     |  769 | 339ed57f853429a5d9a1ee0489f50a4f7410c030fa582850697b13604a55fbfa | 2013-11-08 08:02:59 | 2011-01-05 14:49:15 |
+| 10 |            55 |       9 | rerum      | 1457 | df39def99b30d93981996b0865f8dbf7ffd40c2012d79ea2b38ab55eea4cfbeb | 2011-08-06 15:50:27 | 2010-12-28 15:28:45 |
++----+---------------+---------+------------+------+------------------------------------------------------------------+---------------------+---------------------+
+10 rows in set (0.00 sec)
+
+mysql> UPDATE media SET media_type_id = FLOOR(1 + RAND() * 3);
+Query OK, 99 rows affected (0.00 sec)
+Rows matched: 100  Changed: 99  Warnings: 0
+
+mysql> UPDATE media SET user_id = FLOOR(1 + RAND() * 200);
+Query OK, 100 rows affected (0.00 sec)
+Rows matched: 100  Changed: 100  Warnings: 0
+
+mysql> CREATE TEMPORARY TABLE exts (name VARCHAR(10));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> INSERT INTO exts VALUES ('jpeg'), ('avi'), ('mprg'), ('png');
+Query OK, 4 rows affected (0.00 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM exts;
++------+
+| name |
++------+
+| jpeg |
+| avi  |
+| mprg |
+| png  |
++------+
+4 rows in set (0.00 sec)
+
+mysql> UPDATE media SET filename = CONCAT('https://dropbox/vk/',
+    ->   filename,
+    ->   '.',
+    ->   (SELECT name FROM exts ORDER BY RAND() LIMIT 1)
+    -> );
+Query OK, 100 rows affected (0.01 sec)
+Rows matched: 100  Changed: 100  Warnings: 0
+
+mysql> UPDATE media SET file_size = FLOOR(10000 + (RAND() * 1000000)) WHERE file_size < 1000;
+ERROR 1054 (42S22): Unknown column 'file_size' in 'where clause'
+mysql> UPDATE media SET size = FLOOR(10000 + (RAND() * 1000000)) WHERE size < 1000;
+Query OK, 46 rows affected (0.00 sec)
+Rows matched: 46  Changed: 46  Warnings: 0
+
+mysql> UPDATE media SET metadata = CONCAT('{"owner":"',
+    ->   (SELECT CONCAT(first_name, ' ', last_name) FROM users WHERE id = user_id),
+    ->   '"}');
+Query OK, 100 rows affected (0.01 sec)
+Rows matched: 100  Changed: 100  Warnings: 0
+
+mysql> ALTER TABLE media MODIFY COLUMN metadata JSON;
+Query OK, 100 rows affected (0.19 sec)
+Records: 100  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM media LIMIT 10;
+SELECT * FROM media LIMIT 10;
+^C
+mysql>
+mysql> SELECT * FROM media LIMIT 10;
++----+---------------+---------+-----------------------------------+--------+---------------------------------+---------------------+---------------------+
+| id | media_type_id | user_id | filename                          | size   | metadata                        | created_at          | updated_at          |
++----+---------------+---------+-----------------------------------+--------+---------------------------------+---------------------+---------------------+
+|  1 |             3 |      36 | https://dropbox/vk/quaerat.jpeg   |   1593 | {"owner": "Desiree Frami"}      | 2016-11-15 21:49:23 | 2020-04-27 20:54:54 |
+|  2 |             2 |     102 | https://dropbox/vk/quis.avi       | 718879 | NULL                            | 2017-12-10 16:24:11 | 2020-04-27 20:54:54 |
+|  3 |             1 |     200 | https://dropbox/vk/minima.avi     | 274031 | NULL                            | 2018-02-17 16:46:14 | 2020-04-27 20:54:54 |
+|  4 |             3 |      96 | https://dropbox/vk/minima.jpeg    |   1113 | {"owner": "Margarette Wiegand"} | 2010-06-09 11:07:46 | 2020-04-27 20:54:54 |
+|  5 |             2 |      79 | https://dropbox/vk/reiciendis.avi |   1959 | {"owner": "Herminio Mante"}     | 2019-09-09 03:56:23 | 2020-04-27 20:54:54 |
+|  6 |             2 |     108 | https://dropbox/vk/laboriosam.png | 203518 | NULL                            | 2019-09-07 22:02:28 | 2020-04-27 20:54:54 |
+|  7 |             2 |     101 | https://dropbox/vk/eveniet.avi    |   1452 | NULL                            | 2015-05-21 01:05:52 | 2020-04-27 20:54:54 |
+|  8 |             3 |     179 | https://dropbox/vk/nesciunt.png   | 185499 | NULL                            | 2012-04-28 00:24:29 | 2020-04-27 20:54:54 |
+|  9 |             1 |     194 | https://dropbox/vk/maxime.jpeg    | 306943 | NULL                            | 2013-11-08 08:02:59 | 2020-04-27 20:54:54 |
+| 10 |             1 |      30 | https://dropbox/vk/rerum.jpeg     |   1457 | {"owner": "Holden Gorczany"}    | 2011-08-06 15:50:27 | 2020-04-27 20:54:54 |
++----+---------------+---------+-----------------------------------+--------+---------------------------------+---------------------+---------------------+
+10 rows in set (0.00 sec)
+
+mysql> DESC friendship;
++--------------+------------------+------+-----+-------------------+-------+
+| Field        | Type             | Null | Key | Default           | Extra |
++--------------+------------------+------+-----+-------------------+-------+
+| user_id      | int(10) unsigned | NO   | PRI | NULL              |       |
+| friend_id    | int(10) unsigned | NO   | PRI | NULL              |       |
+| status_id    | int(10) unsigned | NO   |     | NULL              |       |
+| requested_at | datetime         | YES  |     | CURRENT_TIMESTAMP |       |
+| confirmed_at | datetime         | YES  |     | NULL              |       |
++--------------+------------------+------+-----+-------------------+-------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM friendship LIMIT 10;
++---------+-----------+-----------+---------------------+---------------------+
+| user_id | friend_id | status_id | requested_at        | confirmed_at        |
++---------+-----------+-----------+---------------------+---------------------+
+|       1 |        38 |       102 | 2020-01-01 13:40:54 | 2015-05-06 01:52:49 |
+|       2 |        89 |       102 | 2017-08-11 22:17:23 | 2014-10-23 07:16:52 |
+|       3 |         5 |       103 | 2017-07-08 22:50:20 | 2011-11-09 09:46:09 |
+|       4 |        38 |       102 | 2018-01-21 16:57:37 | 2013-09-26 05:09:25 |
+|       5 |        53 |       101 | 2012-01-22 17:25:59 | 2012-04-12 08:33:20 |
+|       5 |        69 |       101 | 2014-06-30 20:43:22 | 2018-02-24 18:45:16 |
+|       5 |        89 |       103 | 2015-10-01 09:57:26 | 2012-12-14 03:41:22 |
+|       8 |        68 |       103 | 2015-11-25 12:41:22 | 2013-03-22 03:31:59 |
+|       9 |        78 |       101 | 2010-10-18 12:17:21 | 2020-02-28 15:40:02 |
+|      10 |        55 |       101 | 2018-06-07 14:46:41 | 2015-11-25 23:54:07 |
++---------+-----------+-----------+---------------------+---------------------+
+10 rows in set (0.00 sec)
+
+mysql> UPDATE friendship SET
+    ->   user_id = FLOOR(1 + RAND() * 200),
+    ->   friend_id = FLOOR(1 + RAND() * 200);
+Query OK, 99 rows affected (0.01 sec)
+Rows matched: 99  Changed: 99  Warnings: 0
+
+mysql> SELECT * FROM friendship LIMIT 10;
++---------+-----------+-----------+---------------------+---------------------+
+| user_id | friend_id | status_id | requested_at        | confirmed_at        |
++---------+-----------+-----------+---------------------+---------------------+
+|       1 |       158 |       102 | 2011-06-04 12:08:20 | 2017-10-21 10:45:57 |
+|       4 |       187 |       103 | 2018-12-10 04:02:06 | 2013-01-03 21:56:45 |
+|       4 |       195 |       103 | 2017-09-07 02:30:34 | 2012-02-21 14:10:59 |
+|       8 |       137 |       103 | 2012-08-07 16:08:40 | 2014-07-20 18:03:44 |
+|      10 |        60 |       101 | 2010-10-18 12:17:21 | 2020-02-28 15:40:02 |
+|      15 |       192 |       101 | 2011-06-22 22:17:21 | 2017-01-16 08:17:39 |
+|      16 |       107 |       101 | 2019-05-13 22:43:16 | 2012-12-25 12:57:07 |
+|      21 |        46 |       102 | 2010-05-12 16:24:18 | 2014-02-13 04:11:06 |
+|      22 |        69 |       101 | 2013-08-02 04:38:30 | 2019-12-09 14:42:20 |
+|      25 |        16 |       101 | 2013-09-01 17:00:44 | 2019-11-11 12:27:06 |
++---------+-----------+-----------+---------------------+---------------------+
+10 rows in set (0.00 sec)
+
+mysql> SELECT * FROM friendship_statuses;
++-----+------------+
+| id  | name       |
++-----+------------+
+| 101 | friend     |
+| 102 | not_friend |
+| 103 | subscriber |
++-----+------------+
+3 rows in set (0.00 sec)
+
+mysql> TRUNCATE friendship_statuses;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> INSERT INTO friendship_statuses (name) VALUES
+    ->   ('Requested'),
+    ->   ('Confirmed'),
+    ->   ('Rejected');
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> UPDATE friendship SET status_id = FLOOR(1 + RAND() * 3);
+Query OK, 99 rows affected (0.01 sec)
+Rows matched: 99  Changed: 99  Warnings: 0
+
+mysql> SELECT * FROM friendship_statuses;
++----+-----------+
+| id | name      |
++----+-----------+
+|  2 | Confirmed |
+|  3 | Rejected  |
+|  1 | Requested |
++----+-----------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM friendship LIMIT 10;
++---------+-----------+-----------+---------------------+---------------------+
+| user_id | friend_id | status_id | requested_at        | confirmed_at        |
++---------+-----------+-----------+---------------------+---------------------+
+|       1 |       158 |         1 | 2011-06-04 12:08:20 | 2017-10-21 10:45:57 |
+|       4 |       187 |         3 | 2018-12-10 04:02:06 | 2013-01-03 21:56:45 |
+|       4 |       195 |         3 | 2017-09-07 02:30:34 | 2012-02-21 14:10:59 |
+|       8 |       137 |         2 | 2012-08-07 16:08:40 | 2014-07-20 18:03:44 |
+|      10 |        60 |         2 | 2010-10-18 12:17:21 | 2020-02-28 15:40:02 |
+|      15 |       192 |         1 | 2011-06-22 22:17:21 | 2017-01-16 08:17:39 |
+|      16 |       107 |         1 | 2019-05-13 22:43:16 | 2012-12-25 12:57:07 |
+|      21 |        46 |         2 | 2010-05-12 16:24:18 | 2014-02-13 04:11:06 |
+|      22 |        69 |         3 | 2013-08-02 04:38:30 | 2019-12-09 14:42:20 |
+|      25 |        16 |         1 | 2013-09-01 17:00:44 | 2019-11-11 12:27:06 |
++---------+-----------+-----------+---------------------+---------------------+
+10 rows in set (0.00 sec)
+
+mysql> DESC communities;
++-------+------------------+------+-----+---------+----------------+
+| Field | Type             | Null | Key | Default | Extra          |
++-------+------------------+------+-----+---------+----------------+
+| id    | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
+| name  | varchar(150)     | NO   | UNI | NULL    |                |
++-------+------------------+------+-----+---------+----------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM communities;
++-----+----------------+
+| id  | name           |
++-----+----------------+
+|  65 | a              |
+|  89 | accusantium    |
+|  84 | ad             |
+|  74 | adipisci       |
+|  48 | amet           |
+|  73 | animi          |
+|   7 | aperiam        |
+|  61 | architecto     |
+|  60 | aspernatur     |
+|  66 | at             |
+|  16 | aut            |
+|  17 | autem          |
+|  70 | beatae         |
+|  46 | blanditiis     |
+|  31 | consequatur    |
+|  68 | consequuntur   |
+|  69 | corrupti       |
+|  64 | cum            |
+|  98 | deleniti       |
+|  40 | dolor          |
+|  57 | dolorem        |
+|  72 | doloremque     |
+|  54 | dolores        |
+|  56 | dolorum        |
+|  33 | ea             |
+|  79 | eaque          |
+|  96 | earum          |
+|  62 | eius           |
+|  93 | enim           |
+|  35 | error          |
+|  24 | esse           |
+|  26 | est            |
+|   3 | et             |
+|  71 | eveniet        |
+|  39 | ex             |
+|  23 | exercitationem |
+|  81 | expedita       |
+|   4 | explicabo      |
+|  15 | facilis        |
+|  63 | id             |
+|  55 | illum          |
+|  28 | in             |
+|  59 | incidunt       |
+|  32 | ipsa           |
+|   9 | ipsum          |
+|  90 | iste           |
+|  76 | iusto          |
+|  94 | laboriosam     |
+|  99 | laudantium     |
+|  52 | magni          |
+|   5 | maxime         |
+|  92 | minima         |
+|  11 | minus          |
+|  44 | modi           |
+|   1 | molestiae      |
+|  42 | mollitia       |
+|  95 | natus          |
+|  51 | nihil          |
+|  97 | nisi           |
+|  83 | non            |
+|  58 | nostrum        |
+|  77 | nulla          |
+|  21 | occaecati      |
+| 100 | odio           |
+|  36 | odit           |
+|  85 | officia        |
+|  45 | omnis          |
+|  41 | pariatur       |
+|  43 | perferendis    |
+|   2 | provident      |
+|  27 | quaerat        |
+|  13 | qui            |
+|  78 | quia           |
+|  67 | quibusdam      |
+|  18 | quidem         |
+|  14 | quis           |
+|  20 | quisquam       |
+|  30 | quo            |
+|  10 | quos           |
+|  87 | ratione        |
+|  34 | rem            |
+|  82 | repellat       |
+|   8 | rerum          |
+|  50 | saepe          |
+|  38 | sed            |
+|  75 | sequi          |
+|  25 | sint           |
+|  12 | sit            |
+|  86 | soluta         |
+|  47 | sunt           |
+|  37 | tempora        |
+|  91 | unde           |
+|  80 | ut             |
+|   6 | vel            |
+|  29 | veniam         |
+|  88 | vitae          |
+|  53 | voluptas       |
+|  49 | voluptate      |
+|  22 | voluptatem     |
+|  19 | voluptatum     |
++-----+----------------+
+100 rows in set (0.00 sec)
+
+mysql> DELETE FROM communities WHERE id > 20;
+Query OK, 80 rows affected (0.00 sec)
+
+mysql> SELECT * FROM communities_users;
++--------------+---------+
+| community_id | user_id |
++--------------+---------+
+|            1 |      76 |
+|            2 |      11 |
+|            2 |      59 |
+|            4 |       2 |
+|            4 |      85 |
+|            6 |      27 |
+|            6 |      47 |
+|            9 |      58 |
+|            9 |      85 |
+|           12 |      13 |
+|           13 |       2 |
+|           14 |       7 |
+|           16 |      48 |
+|           16 |      53 |
+|           19 |      40 |
+|           20 |      33 |
+|           20 |      75 |
+|           20 |      79 |
+|           22 |      45 |
+|           22 |      46 |
+|           22 |      96 |
+|           23 |      47 |
+|           24 |      72 |
+|           24 |      82 |
+|           25 |      16 |
+|           25 |      44 |
+|           27 |      46 |
+|           27 |      48 |
+|           28 |      75 |
+|           28 |      97 |
+|           30 |      33 |
+|           30 |      35 |
+|           31 |      66 |
+|           32 |       6 |
+|           32 |       7 |
+|           32 |      31 |
+|           32 |      80 |
+|           33 |      41 |
+|           34 |      89 |
+|           38 |      21 |
+|           38 |      30 |
+|           38 |      44 |
+|           39 |      40 |
+|           39 |      48 |
+|           41 |      64 |
+|           42 |      58 |
+|           43 |      61 |
+|           43 |      62 |
+|           44 |      30 |
+|           46 |      10 |
+|           46 |      93 |
+|           48 |      63 |
+|           51 |      55 |
+|           52 |      34 |
+|           52 |      73 |
+|           54 |      39 |
+|           55 |      95 |
+|           56 |      93 |
+|           57 |      69 |
+|           59 |      31 |
+|           59 |      55 |
+|           59 |      74 |
+|           60 |      44 |
+|           60 |      76 |
+|           61 |      49 |
+|           66 |      90 |
+|           67 |      55 |
+|           68 |      30 |
+|           68 |      60 |
+|           69 |      98 |
+|           70 |      10 |
+|           71 |      98 |
+|           72 |      41 |
+|           72 |      84 |
+|           73 |      54 |
+|           74 |      89 |
+|           75 |      16 |
+|           75 |      94 |
+|           76 |      74 |
+|           77 |      19 |
+|           79 |       7 |
+|           80 |      11 |
+|           80 |      53 |
+|           84 |      66 |
+|           84 |      80 |
+|           86 |      90 |
+|           86 |      99 |
+|           87 |      89 |
+|           88 |      53 |
+|           88 |      78 |
+|           89 |      25 |
+|           89 |      37 |
+|           90 |       8 |
+|           92 |      84 |
+|           95 |      14 |
+|           95 |      49 |
+|           95 |      59 |
+|           95 |      74 |
+|           98 |      59 |
+|          100 |       2 |
++--------------+---------+
+100 rows in set (0.00 sec)
+
+mysql> UPDATE communities_users SET community_id = FLOOR(1 + RAND() * 20);
+ERROR 1062 (23000): Duplicate entry '2-55' for key 'PRIMARY'
+
+ubuntu@ip-172-31-43-11:~$ sudo mysqldump vk > vk.dump.sql
